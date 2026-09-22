@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kartu Semangat Spesial Lu 🤍</title>
+    <!-- Tailwind CSS for modern responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fbcfe8 0%, #f472b6 50%, #db2777 100%);
+            overflow-x: hidden;
+        }
+        /* Floating hearts background animation */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+        .floating-heart {
+            position: absolute;
+            animation: floatUp 6s linear infinite;
+            color: rgba(255, 255, 255, 0.6);
+            z-index: 0;
+        }
+        /* Glassmorphism card UI */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        /* Pulse glow effect */
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(244, 114, 182, 0.6); }
+            50% { box-shadow: 0 0 40px rgba(244, 114, 182, 0.9), 0 0 60px rgba(219, 39, 119, 0.4); }
+        }
+        .card-glow {
+            animation: glow 4s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 relative">
+
+    <div id="hearts-container" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+
+    <main class="relative z-10 w-full max-w-md mx-auto">
+        <div class="glass-card card-glow rounded-3xl p-6 sm:p-8 text-slate-800 transition-all duration-500">
+            
+            <!-- Header Status / Music Control -->
+            <div class="flex items-center justify-between mb-6 pb-4 border-b border-pink-200">
+                <div class="flex items-center space-x-2">
+                    <span class="inline-block w-3 h-3 bg-pink-500 rounded-full animate-ping"></span>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-pink-600">Special Message</span>
+                </div>
+                <!-- Music Player Widget -->
+                <button id="music-toggle" class="flex items-center space-x-2 bg-pink-500 hover:bg-pink-600 text-white text-xs font-medium px-3.5 py-2 rounded-full shadow-md transition-all transform active:scale-95 cursor-pointer">
+                    <i id="music-icon" class="fa-solid fa-play"></i>
+                    <span id="music-text">Putar Musik</span>
+                </button>
+            </div>
+
+            <!-- Hidden Audio Element (Can be replaced with a local mp3 file name or a royalty-free URL) -->
+            <audio id="bg-music" loop>
+                <!-- Contoh lagu romantis instrumental bebas copyright -->
+                <source src="music.mp3" type="audio/ogg">
+                Browser kamu tidak mendukung elemen audio.
+            </audio>
+
+            <!-- Card Illustration / Avatar -->
+            <div class="flex justify-center mb-5">
+                <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-pink-400 to-rose-400 p-1 shadow-inner flex items-center justify-center">
+                    <img src="download.jpg" alt="Avatar" class="w-full h-full object-cover rounded-full shadow" onerror="this.src='https://placehold.co/200x200/f472b6/ffffff?text=%E2%99%A5%EF%B8%8F'">
+                </div>
+            </div>
+
+            <!-- Greeting Title -->
+            <h1 class="text-2xl sm:text-3xl font-bold text-center text-slate-900 mb-2">
+                Untuk Temanku Dibandung 🤍
+            </h1>
+            <p class="text-xs text-center text-slate-500 mb-6">Baca sampai selesai ya, Za!</p>
+
+            <!-- Interactive Message Carousel / Slides -->
+            <div id="message-box" class="min-h-[140px] flex flex-col items-center justify-center text-center px-2 mb-6 transition-all duration-300">
+                <p id="message-text" class="text-sm sm:text-base text-slate-700 leading-relaxed font-medium">
+                    Hai Za... Klik tombol di bawah ini kalau Lu lagi butuh sedikit suntikan semangat hari ini ya. ✨
+                </p>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex items-center justify-between gap-3 pt-2">
+                <button id="prev-btn" class="w-1/2 py-2.5 px-4 rounded-xl border border-pink-300 text-pink-600 font-semibold text-sm hover:bg-pink-50 transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> Sebelumnya
+                </button>
+                <button id="next-btn" class="w-1/2 py-2.5 px-4 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold text-sm shadow-md transition-all cursor-pointer">
+                    Lanjut <i class="fa-solid fa-arrow-right ml-1"></i>
+                </button>
+            </div>
+
+            <!-- Footer note -->
+            <div class="mt-6 text-center">
+                <p class="text-[11px] text-slate-400">Dibuat kebetulan penuh niat khusus buat lu &bull; Buka di VS Code & Browser</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Kumpulan pesan semangat interaktif
+        const messages = [
+            "Hai... Tarik napas dulu yang dalam, lalu hembuskan perlahan ya. 🤍",
+            "Gw tahu akhir-akhir ini hari lu cukup melelahkan dan banyak hal yang harus diurus.",
+            "Tapi ingatlah satu hal: lu itu orang paling tangguh dan hebat (Mungkin) yang pernah gw kenal! 💪✨",
+            "Capek itu wajar, istirahat sebentar itu boleh banget. Jangan terlalu dipforsir ya, kesehatan kamu nomor satu.",
+            "Apapun rintangan hari ini, Gw mau lu tahu kalau gw selalu ada di sini (kalo disono ngapain) buat dukung dan bangga sama lu (slebwe).",
+            "Semangat ya jalani sisa harinya! I love you so much, now and always. ❤️"
+        ];
+
+        let currentIndex = 0;
+
+        const messageText = document.getElementById('message-text');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const musicToggle = document.getElementById('music-toggle');
+        const bgMusic = document.getElementById('bg-music');
+        const musicIcon = document.getElementById('music-icon');
+        const musicText = document.getElementById('music-text');
+        const heartsContainer = document.getElementById('hearts-container');
+
+        // Fungsi memperbarui tampilan teks pesan
+        function updateMessage() {
+            messageText.style.opacity = 0;
+            setTimeout(() => {
+                messageText.textContent = messages[currentIndex];
+                messageText.style.opacity = 1;
+            }, 200);
+
+            // Atur status tombol
+            prevBtn.disabled = currentIndex === 0;
+            if (currentIndex === messages.length - 1) {
+                nextBtn.innerHTML = 'Ulangi <i class="fa-solid fa-rotate-right ml-1"></i>';
+            } else {
+                nextBtn.innerHTML = 'Lanjut <i class="fa-solid fa-arrow-right ml-1"></i>';
+            }
+        }
+
+        // Animasi transisi teks lembut
+        messageText.style.transition = "opacity 0.2s ease-in-out";
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateMessage();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < messages.length - 1) {
+                currentIndex++;
+                updateMessage();
+            } else {
+                currentIndex = 0; // Reset ke awal
+                updateMessage();
+            }
+        });
+
+        // Kontrol pemutar musik latar belakang
+        let isPlaying = false;
+        musicToggle.addEventListener('click', () => {
+            if (!isPlaying) {
+                bgMusic.play().then(() => {
+                    isPlaying = true;
+                    musicIcon.className = "fa-solid fa-pause";
+                    musicText.textContent = "Jeda Musik";
+                }).catch(e => {
+                    console.log("Audio play blocked/error:", e);
+                });
+            } else {
+                bgMusic.pause();
+                isPlaying = false;
+                musicIcon.className = "fa-solid fa-play";
+                musicText.textContent = "Putar Musik";
+            }
+        });
+
+        // Generator hati mengambang otomatis di latar belakang
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '<i class="fa-solid fa-heart"></i>';
+            
+            // Posisi dan ukuran acak
+            const randomX = Math.random() * window.innerWidth;
+            const randomSize = Math.random() * 1.5 + 0.8; // skala
+            const duration = Math.random() * 3 + 4; // kecepatan 4-7 detik
+
+            heart.style.left = `${randomX}px`;
+            heart.style.fontSize = `${randomSize}rem`;
+            heart.style.animationDuration = `${duration}s`;
+
+            heartsContainer.appendChild(heart);
+
+            // Hapus elemen setelah animasi selesai agar memori aman
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        // Munculkan hati setiap 400ms
+        setInterval(createFloatingHeart, 400);
+
+        // Inisialisasi awal tombol
+        updateMessage();
+    </script>
+</body>
+</html>
